@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wealth & Asset Tracker</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    header {
+      background-color: #1a1a2e;
+      color: white;
+      padding: 1rem 2rem;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    section {
+      background: white;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    section h2 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid #1a1a2e;
+      padding-bottom: 0.5rem;
+    }
+
+    .form-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      flex: 1;
+      min-width: 140px;
+    }
+
+    label {
+      font-size: 0.8rem;
+      font-weight: bold;
+      color: #555;
+    }
+
+    input, select {
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      width: 100%;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #1a1a2e;
+    }
+
+    button {
+      padding: 0.55rem 1.25rem;
+      background-color: #1a1a2e;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    button:hover {
+      background-color: #16213e;
+    }
+
+    .summary-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .card {
+      flex: 1;
+      min-width: 140px;
+      background-color: #f4f4f4;
+      border-radius: 6px;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .card p {
+      font-size: 0.75rem;
+      color: #777;
+      margin-bottom: 0.25rem;
+    }
+
+    .card span {
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+
+    .income { color: #2e7d32; }
+    .expense { color: #c62828; }
+    .balance { color: #1a1a2e; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+
+    thead th {
+      text-align: left;
+      padding: 0.6rem 0.75rem;
+      background-color: #f4f4f4;
+      border-bottom: 2px solid #ddd;
+      font-size: 0.78rem;
+      color: #555;
+    }
+
+    tbody td {
+      padding: 0.65rem 0.75rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .delete-btn {
+      background: none;
+      color: #c62828;
+      border: 1px solid #c62828;
+      padding: 0.2rem 0.6rem;
+      font-size: 0.75rem;
+      border-radius: 4px;
+    }
+
+    .delete-btn:hover {
+      background-color: #c62828;
+      color: white;
+    }
+
+    #empty-msg {
+      text-align: center;
+      color: #999;
+      padding: 1.5rem;
+      font-size: 0.9rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.8rem;
+      color: #aaa;
+    }
+
+    @media (max-width: 600px) {
+      .form-group { min-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Wealth & Asset Tracker</h1>
+  </header>
+
+  <main>
+
+    <!-- Summary Cards -->
+    <section>
+      <h2>Summary</h2>
+      <div class="summary-cards">
+        <div class="card">
+          <p>Total Income</p>
+          <span class="Income" id="total-income">$0.00</span>
+        </div>
+        <div class="card">
+          <p>Total Expenses</p>
+          <span class="Expense" id="total-expenses">$0.00</span>
+        </div>
+        <div class="card">
+          <p>Net Balance</p>
+          <span class="Balance" id="net-balance">$0.00</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Add Transaction Form -->
+    <section>
+      <h2>Add Transaction</h2>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="txn-date">Date</label>
+          <input type="date" id="txn-date" />
+        </div>
+        <div class="form-group">
+          <label for="txn-desc">Description</label>
+          <input type="text" id="txn-desc" placeholder="ex. Paycheck" />
+        </div>
+        <div class="form-group">
+          <label for="txn-type">Type</label>
+          <select id="txn-type">
+            <option value="Income">Income</option>
+            <option value="Expense">Expense</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="txn-amount">Amount ($)</label>
+          <input type="number" id="txn-amount" min="0.01" step="0.01" placeholder="0.00" />
+        </div>
+      </div>
+      <button onclick="addTransaction()">Add Transaction</button>
+    </section>
+
+    <!-- Transaction History -->
+    <section>
+      <h2>Transaction History</h2>
+      <p id="empty-msg">No transactions yet. Add one above.</p>
+      <table id="txn-table" style="display: none;">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Amount</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="txn-tbody"></tbody>
+      </table>
+    </section>
+
+  </main>
+
+  <script>
+    // Load saved transactions from localStorage, or start with an empty array
+    let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
+
+    // Set today's date as the default in the date field
+    document.getElementById("txn-date").value = new Date().toISOString().split("T")[0];
+
+    // Save the transactions array to localStorage
+    function saveToStorage() {
+      localStorage.setItem("transactions", JSON.stringify(transactions));
+    }
+
+    // Format a number as a dollar amount
+    function formatMoney(amount) {
+      return "$" + amount.toFixed(2);
+    }
+
+    // Add a new transaction from the form inputs
+    function addTransaction() {
+      const date   = document.getElementById("txn-date").value;
+      const desc   = document.getElementById("txn-desc").value.trim();
+      const type   = document.getElementById("txn-type").value;
+      const amount = parseFloat(document.getElementById("txn-amount").value);
+
+      // Basic validation
+      if (!date || !desc || isNaN(amount) || amount <= 0) {
+        alert("Please fill in all fields with valid values.");
+        return;
+      }
+
+      // Create a transaction object and add it to the array
+      const transaction = {
+        id: Date.now(),
+        date,
+        desc,
+        type,
+        amount
+      };
+
+      transactions.push(transaction);
+      saveToStorage();
+      renderTransactions();
+
+      // Clear the form inputs
+      document.getElementById("txn-desc").value   = "";
+      document.getElementById("txn-amount").value = "";
+    }
+
+    // Delete a transaction by its id
+    function deleteTransaction(id) {
+      transactions = transactions.filter(function(t) {
+        return t.id !== id;
+      });
+      saveToStorage();
+      renderTransactions();
+    }
+
+    // Render the transaction table and update the summary cards
+    function renderTransactions() {
+      const tbody      = document.getElementById("txn-tbody");
+      const table      = document.getElementById("txn-table");
+      const emptyMsg   = document.getElementById("empty-msg");
+
+      // Show or hide the table depending on whether there's data
+      if (transactions.length === 0) {
+        table.style.display    = "none";
+        emptyMsg.style.display = "block";
+      } else {
+        table.style.display    = "table";
+        emptyMsg.style.display = "none";
+      }
+
+      // Build the table rows
+      tbody.innerHTML = "";
+      transactions.forEach(function(t) {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${t.date}</td>
+          <td>${t.desc}</td>
+          <td>${t.type}</td>
+          <td style="color: ${t.type === "Income" ? "#2e7d32" : "#c62828"}; font-weight: bold;">
+            ${t.type === "Income" ? "+" : "-"}${formatMoney(t.amount)}
+          </td>
+          <td>
+            <button class="delete-btn" onclick="deleteTransaction(${t.id})">Delete</button>
+          </td>
+        `;
+        tbody.appendChild(row);
+      });
+
+      // Calculate and display the summary totals
+      let totalIncome  = 0;
+      let totalExpense = 0;
+
+      transactions.forEach(function(t) {
+        if (t.type === "Income") {
+          totalIncome += t.amount;
+        } else {
+          totalExpense += t.amount;
+        }
+      });
+
+      const netBalance = totalIncome - totalExpense;
+
+      document.getElementById("total-income").textContent   = formatMoney(totalIncome);
+      document.getElementById("total-expenses").textContent = formatMoney(totalExpense);
+      document.getElementById("net-balance").textContent    = formatMoney(netBalance);
+    }
+
+    // Run on page load to restore saved data
+    renderTransactions();
+  </script>
+
+</body>
+</html>

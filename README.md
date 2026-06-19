@@ -20,4 +20,3 @@ Then open `http://localhost:3000` in a browser.
 - RESTful API routes (GET, POST, DELETE)
 - Vanilla JavaScript with fetch() for client-server communication
 - express.static() to serve frontend files
-

@@ -1,0 +1,21 @@
+// This file defines the database with Prisma.
+// Tells Prisma which tables to generate and what columns they have.
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url = env("DATABASE_URL")
+}
+
+// Transaction model maps to a "transaction" table in the database.
+model Transaction {
+    id          Int     @id @default(autoincrement())
+    date        String
+    desc        String
+    type        String
+    amount      Float
+    createdAt   DateTime @default(now())
+}

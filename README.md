@@ -1,22 +1,24 @@
 # Wealth & Asset Tracker
-Personal finance tracker refactored to run on a Node.js and Express server.
+Personal finance tracker refactored to use a PostgreSQL database via Prisma ORM.
 
-## Features
-- Log income and expense transactions
-- View a live summary of income, expenses, and net balance
-- Delete transactions
-- Data is stored server-side and fetched on page load
+## New Features
+- Added Prisma ORM to replace in-memery server array
+- Connected to hosted PostgreSQL database on Neon
+- Transactions now persist after server restarts
+- Database seeded with initial mock data
 
 ## How to Run
-Install dependencies and start the server:
+Install dependencies, push schema to database, seed it, and start the server:
 ```
 npm install
+npx prisma db push
+node prisma/seed.js
 node server.js
 ```
 Then open `http://localhost:3000` in a browser.
 
 ## Tech Used
 - Node.js and Express for the server
-- RESTful API routes (GET, POST, DELETE)
-- Vanilla JavaScript with fetch() for client-server communication
-- express.static() to serve frontend files
+- Prisma ORM for database queries
+- PostgreSQL hosted on Neon
+- Environment variables via .env for database credentials

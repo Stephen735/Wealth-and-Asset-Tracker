@@ -1,22 +1,25 @@
 # Wealth & Asset Tracker
-Personal finance tracker refactored to run on a Node.js and Express server.
+Personal finance tracker migrated to Next.js with React components and App Router API routes.
 
 ## Features
 - Log income and expense transactions
-- View a live summary of income, expenses, and net balance
+- View live summary of income, expenses, and net balance
 - Delete transactions
-- Data is stored server-side and fetched on page load
+- Data persists in PostgreSQL database hosted via Neon
 
 ## How to Run
-Install dependencies and start the server:
+Install dependencies, generate Prisma client, then start dev server:
+
 ```
 npm install
-node server.js
+npx prisma generate
+npm run dev
 ```
+
 Then open `http://localhost:3000` in a browser.
 
 ## Tech Used
-- Node.js and Express for the server
-- RESTful API routes (GET, POST, DELETE)
-- Vanilla JavaScript with fetch() for client-server communication
-- express.static() to serve frontend files
+- Next.js 14 with App Router
+- React with useState and useEffect hooks
+- Tyescript
+- Prisma ORM with PostgreSQL on Neon

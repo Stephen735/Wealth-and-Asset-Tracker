@@ -1,17 +1,23 @@
 {
-  "name": "sprint-02",
-  "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
+  "name": "wealth-asset-tracker",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
   "dependencies": {
-    "express": "^5.2.1"
+    "@prisma/client": "^5.0.0",
+    "next": "^16.2.10",
+    "react": "^18",
+    "react-dom": "^18"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "prisma": "^5.0.0",
+    "typescript": "^5"
   }
 }

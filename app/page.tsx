@@ -5,6 +5,7 @@
 import { useState, useEffect } from "react";
 import TransactionForm from "./components/TransactionForm";
 import TransactionList from "./components/TransactionList";
+import StockLookup from "./components/StockLookup";
 
 interface Transaction {
     id: number;
@@ -34,6 +35,7 @@ export default function Home() {
         <main>
             <TransactionForm onAdd={loadTransactions} />
             <TransactionList transactions={transactions} onDelete={loadTransactions} />
+            <StockLookup />
         </main>
     );
 }

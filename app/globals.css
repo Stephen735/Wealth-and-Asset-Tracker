@@ -89,6 +89,11 @@ button:hover {
   background-color: #16213e;
 }
 
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
 .summary-cards {
   display: flex;
   flex-wrap: wrap;
@@ -164,6 +169,34 @@ tbody tr:last-child td {
   font-size: 0.9rem;
 }
 
+.stock-results {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #f4f4f4;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.stock-symbol {
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #1a1a2e;
+}
+
+.stock-price {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.stock-change {
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
 @media (max-width: 600px) {
   .form-group { min-width: 100%; }
+  .stock-result { flex-direction: column; gap: 0.5rem; }
 }

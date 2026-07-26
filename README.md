@@ -1,25 +1,29 @@
 # Wealth & Asset Tracker
-Personal finance tracker migrated to Next.js with React components and App Router API routes.
+Personal finance tracker with stock lookup, deployed to Vercel.
 
 ## Features
 - Log income and expense transactions
 - View live summary of income, expenses, and net balance
 - Delete transactions
-- Data persists in PostgreSQL database hosted via Neon
+- Look up real-time stock prices via Alpha Vantage API
+- Data persists in PostgreSQL database hosted on Neon
+- Deployed live on Vercel
 
 ## How to Run
 Install dependencies, generate Prisma client, then start dev server:
 
 ```
 npm install
-npx prisma generate
-npm run dev
+npm prisma generate
+node run dev
 ```
 
 Then open `http://localhost:3000` in a browser.
 
 ## Tech Used
-- Next.js 14 with App Router
+- Next.js 16 with App Router
 - React with useState and useEffect hooks
-- Tyescript
+- TypeScript
 - Prisma ORM with PostgreSQL on Neon
+- Alpha Vantage API for real-time stock prices access
+- Vercel for cloud deployment

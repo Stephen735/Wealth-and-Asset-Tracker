@@ -27,3 +27,6 @@ Then open `http://localhost:3000` in a browser.
 - Prisma ORM with PostgreSQL on Neon
 - Alpha Vantage API for real-time stock prices access
 - Vercel for cloud deployment
+
+## Live Demo
+https://wealth-and-asset-tracker-stephen-tisdale-s-projects.vercel.app

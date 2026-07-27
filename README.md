@@ -29,5 +29,4 @@ Then open `http://localhost:3000` in a browser.
 - Vercel for cloud deployment
 
 ## Live Demo
-https://wealth-and-asset-tracker-stephen-tisdale-s-projects.vercel.app
-
+https://wealth-and-asset-tracker.vercel.app
